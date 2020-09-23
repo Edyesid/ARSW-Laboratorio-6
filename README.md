@@ -31,14 +31,21 @@ Se desea generar una pequeña interfaz de administrador para el sistema de gesti
 	* Como en este caso se tienen dos operaciones basadas en callbacks, y que las mismas requieren realizarse en un orden específico, tenga en cuenta cómo usar las promesas 	de JavaScript mediante alguno de los ejemplos disponibles.
 	
 2. Agregue el botón 'Create new function', de manera que cuando se oprima:
+
 	* Se borre el canvas actual.
+	
 	* Se solicite el nombre y género de la película, además de la hora de la nueva función (usted decide la manera de hacerlo). Se tendrá en cuenta el nombre del cine y la 	fecha actualmente consultados para asociarles la función.
 	
 Esta opción debe cambiar la manera como funciona la opción 'save/update', pues en este caso, al oprimirse la primera vez (es decir cuando se va guardar la nueva función 'save') debe (igualmente, usando promesas):
+
 	* Hacer POST al recurso /cinemas/{name}, para crear la nueva función.
+	
 	* Hacer GET al respectivo recurso, para actualizar el listado de funciones.
 	
 3. Agregue el botón 'DELETE', de manera que (también con promesas):
+
 	* Borre el canvas.
+	
 	* Haga DELETE de la función actualmente seleccionada.
+	
 	* Haga GET de las funciones ahora disponibles.
