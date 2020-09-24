@@ -6,7 +6,7 @@ var app = (function() {
 	
 	var listFunctions_;
 	
-	var cliente = "js/apimock.js";
+	var cliente = "js/apiclient.js";
 
 	var setcinema = function(cinema) {
 		cinema_ = cinema;
