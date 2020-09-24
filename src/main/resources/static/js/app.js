@@ -6,7 +6,7 @@ var app = (function() {
 	
 	var listFunctions_;
 	
-	var cliente = "js/apiclient.js";
+	var cliente = "js/apimock.js";
 
 	var setcinema = function(cinema) {
 		cinema_ = cinema;
@@ -59,36 +59,46 @@ var app = (function() {
     	var lugares = funcion.seats;
     	var sillas = lugares.length * lugares[0].length;
     	var c = document.getElementById("myCanvas");
-    	var ctx = c.getContext("2d");
+		var ctx = c.getContext("2d");
+		
+		var img = new Image();
+		img.src = "imagenes/azul.png";
     	
-    	ctx.fillStyle = "#FF0000";
-    	
-    	for (i = 0; i < lugares.length; i++) {
-    		for (j = 0; j < lugares[i].length; j++) {
-    			if (lugares[i][j]) {
-    				ctx.fillRect((j * 40) + 25, (i * 30) + 30, 20, 20);
-    			} else {
-    				sillas = sillas - 1;
-    				ctx.fillStyle = "#000000";
-    				ctx.fillRect((j * 40) + 25, (i * 30) + 30, 20, 20);
-    				ctx.fillStyle = "#FF0000";
-    			}
-    		}
-    	}
+		var img2 = new Image();
+		img2.src = "imagenes/roja.png";
+
+		img.onload = function() {
+			img2.onload = function() {
+				for (i = 0; i < lugares.length; i++) {
+					for (j = 0; j < lugares[i].length; j++) {
+						if (lugares[i][j]) {
+							var a = (j * 40) + 25;
+							var b = (i * 35) + 30;
+							ctx.drawImage(img, a, b);
+						} else {
+							sillas = sillas - 1;
+							var c = (j * 40) + 25;
+							var d = (i * 35) + 30;
+							ctx.drawImage(img2, c, d);
+						}
+					}
+				}
+			}
+		}
     	$("#chairs").text(sillas);
     }
     
-    function adminstrator(mvname) {
+    function administrator(mvname) {
     	$("#saveupdate").empty();
     	$("#cfunction").empty();
     	$("#dfunction").empty();
 		$("#editText").empty();
     	$("#editfunction").empty();
     	
-    	var input = '<input type="\"text"\" id="\"editfunction"\" placeholder="\"New Hour"\" />'
-    	var boton1 = '<button id="\"saveupdate"\">Save/Update</button>'
-    	var boton2 = '<button id="\"cfunction"\">Create new function</button>'
-		var boton3 = '<button id="\"dfunction"\">Delete Function</button>'
+    	var input = '<input type="text" id="editfunction" placeholder="New Hour" />'
+    	var boton1 = "<button id='saveupdate' onClick = 'app.putFunction(\"" + mvname + "\")'>Save/Update</button>"
+    	var boton2 = '<button id="cfunction">Create new function</button>'
+		var boton3 = '<button id="dfunction">Delete Function</button>'
 			
 		$("#editText").append("Edit function:");
     	$("#editfunction").append(input);
@@ -110,7 +120,11 @@ var app = (function() {
 					client.getfuncion(cinema_,fecha_,mvname,seats);
 				});
 			favailability(mvname);
-			adminstrator(mvname);
+			administrator(mvname);
+		},
+		
+		putFunction : function(mvname) {
+			console.log(mvname);
 		}
 	}
 })();
