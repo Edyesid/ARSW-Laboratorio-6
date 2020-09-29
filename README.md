@@ -1,6 +1,12 @@
-# ARSW - Laboratorio - 5
+# ARSW - Laboratorio - 6
 
-Comandos para ejecutar la aplicación
+## Integrantes
+
+Edwin Yesid Rodriguez Maldonado
+
+Guillermo Esteban Bernal Bonilla
+
+## Comandos para ejecutar la aplicación
 
 ```
 mvn clean compile
@@ -30,6 +36,8 @@ Se desea generar una pequeña interfaz de administrador para el sistema de gesti
 
 	* Como en este caso se tienen dos operaciones basadas en callbacks, y que las mismas requieren realizarse en un orden específico, tenga en cuenta cómo usar las promesas 	de JavaScript mediante alguno de los ejemplos disponibles.
 	
+	![punto 1](https://user-images.githubusercontent.com/54051399/94607586-bd8ab700-0261-11eb-8a8e-1be5480eaca0.png)
+	
 2. Agregue el botón 'Create new function', de manera que cuando se oprima:
 
 	* Se borre el canvas actual.
@@ -42,6 +50,10 @@ Esta opción debe cambiar la manera como funciona la opción 'save/update', pues
 	
 	* Hacer GET al respectivo recurso, para actualizar el listado de funciones.
 	
+	
+![punto 2](https://user-images.githubusercontent.com/54051399/94607765-f88cea80-0261-11eb-830d-a10c60193314.png)
+	
+	
 3. Agregue el botón 'DELETE', de manera que (también con promesas):
 
 	* Borre el canvas.
@@ -49,3 +61,5 @@ Esta opción debe cambiar la manera como funciona la opción 'save/update', pues
 	* Haga DELETE de la función actualmente seleccionada.
 	
 	* Haga GET de las funciones ahora disponibles.
+	
+	![punto 3](https://user-images.githubusercontent.com/54051399/94607604-c1b6d480-0261-11eb-8fa1-a9212bbb6246.png)
