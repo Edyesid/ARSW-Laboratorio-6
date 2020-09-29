@@ -61,5 +61,7 @@ public interface CinemaPersitence {
 	public void NewFunction(String name, CinemaFunction funcion) throws CinemaPersistenceException;
 
 	public void SetFunction(String name, CinemaFunction funct) throws CinemaPersistenceException;
+
+    public void DeleteFunction(String name, CinemaFunction funcion) throws CinemaPersistenceException;
     
 }

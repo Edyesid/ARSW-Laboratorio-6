@@ -99,7 +99,12 @@ public class CinemaServices {
             throw new CinemaException(e.getMessage());
         }
 	}
-    
-    
 
+    public void DeleteFunction(String name, CinemaFunction funcion) throws CinemaPersistenceException, CinemaException {
+        try{
+            cps.DeleteFunction(name,funcion);
+        }catch(CinemaPersistenceException e){
+            throw new CinemaException(e.getMessage());
+        }
+    }
 }

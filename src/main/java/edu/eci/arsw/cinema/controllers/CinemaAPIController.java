@@ -35,11 +35,7 @@ public class CinemaAPIController {
     public ResponseEntity<?> manejadorRecursoCinemas() {
     	try {
     		Set<Cinema> data = csp.getAllCinemas();
-    		if (data == null) {
-    			return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
-    		} else {
-    			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
-    		}
+			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
     	} catch (CinemaPersistenceException e) {
     		Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
@@ -51,11 +47,7 @@ public class CinemaAPIController {
     public ResponseEntity<?> manejadorRecursoCinema(@PathVariable("name") String name) {
     	try {
     		Cinema data = csp.getCinemaByName(name);
-    		if (data == null) {
-    			return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
-    		} else {
-    			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
-    		}
+			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
     		
  	
     	} catch (CinemaException e) {
@@ -67,13 +59,10 @@ public class CinemaAPIController {
     
     @RequestMapping(value="/{name}/{date}", method= RequestMethod.GET)
     public ResponseEntity<?> manejadorRecursoCinemaDate(@PathVariable("name") String name, @PathVariable("date") String date) {
+		System.out.println("-------entro1---------");
     	try {
     		List<CinemaFunction> data = csp.getFunctionsbyCinemaAndDate(name,date);
-    		if (data.isEmpty()) {
-    			return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
-    		} else {
-    			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
-    		}
+			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
     		
     	} catch (CinemaException e) {
     		Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, e);
@@ -83,13 +72,11 @@ public class CinemaAPIController {
     
     @RequestMapping(value="/{name}/{date}/{moviename}", method= RequestMethod.GET)
     public ResponseEntity<?> manejadorRecursoCinemaDateMoviename(@PathVariable("name") String name, @PathVariable("date") String date, @PathVariable("moviename") String moviename) {
+		System.out.println("-------entro2---------");
     	try {
     		CinemaFunction data = csp.getFunctionByCinemaDateMovie(name,date,moviename);
-    		if (data == null) {
-    			return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
-    		} else {
-    			return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
-    		}
+    		return new ResponseEntity<>(data,HttpStatus.ACCEPTED);
+
     	} catch (CinemaException e) {
     		Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("Error 404",HttpStatus.NOT_FOUND);
@@ -110,14 +97,47 @@ public class CinemaAPIController {
     
     @RequestMapping(value="/{name}", method = RequestMethod.PUT)
     public ResponseEntity<?> manejadorPutRecursoName(@RequestBody CinemaFunction funcion,@PathVariable("name") String name) throws CinemaPersistenceException{
-        try {
+		System.out.println("entro -------------------------------------------- entro");
+    	try {
+			System.out.println(name);
+			System.out.println(funcion.getMovie().getName());
+			System.out.println(funcion.getDate());
+			System.out.println(funcion.getSeats());
             csp.SetFunction(name, funcion);
-            return new ResponseEntity<>(HttpStatus.UPGRADE_REQUIRED);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (CinemaException ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);            
-        }        
-
+        }
     }
-    
+
+	@RequestMapping(value="/{name}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> manejadorDeleteRecursoName(@RequestBody CinemaFunction funcion,@PathVariable("name") String name) throws CinemaPersistenceException{
+		try {
+			csp.DeleteFunction(name, funcion);
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		} catch (CinemaException ex) {
+			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
+		}
+	}
+
+	@RequestMapping(value="/{name}/{date}/{moviename}/{row}/{col}", method = RequestMethod.PUT)
+	public ResponseEntity<?> manejadorPutBuyTicket(@PathVariable("name") String name,@PathVariable("date") String date,@PathVariable("moviename") String moviename,@PathVariable("row") String row,@PathVariable("col") String col) throws CinemaPersistenceException{
+		System.out.println("entro --------------------buyticket------------------------ entro");
+		try {
+
+			System.out.println(name);
+			System.out.println(date);
+			System.out.println(moviename);
+			System.out.println(row);
+			System.out.println(col);
+
+			csp.buyTicket(Integer.parseInt(row), Integer.parseInt(col),name,date,moviename);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (CinemaException ex) {
+			Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+			return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
+		}
+	}
 }

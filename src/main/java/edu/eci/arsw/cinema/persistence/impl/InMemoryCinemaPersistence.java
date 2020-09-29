@@ -59,9 +59,11 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
     public void buyTicket(int row, int col, String cinema, String date, String movieName) throws CinemaPersistenceException, CinemaException {
 			Cinema cin = getCinema(cinema);
 	    	List<CinemaFunction> fun = cin.getFunctions();
+			System.out.println("hola");
 	    	for (int i = 0; i < fun.size(); i++) {
-	    		if (fun.get(i).getMovie().getName() == movieName && fun.get(i).getDate() == date) {
+	    		if (fun.get(i).getMovie().getName().equals(movieName) && fun.get(i).getDate().split(" ")[0].equals(date.split(" ")[0])) {
 	    			fun.get(i).buyTicket(row, col);
+					System.out.println(fun.get(i).getSeats());
 	    		}
 	    	}
     }
@@ -72,7 +74,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		Cinema cin = getCinema(cinema);
 		List<CinemaFunction> func = cin.getFunctions();
 		for (int i = 0; i < func.size(); i++) {
-			if (func.get(i).getDate().equals(date)) {
+			if (func.get(i).getDate().split(" ")[0].equals(date)) {
 				functionss.add(func.get(i));
 			}
 		}
@@ -108,7 +110,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 		List<CinemaFunction> functions = cin.getFunctions();	
 		for (int i = 0; i < functions.size(); i++) {
 			CinemaFunction fun = functions.get(i);
-			if (fun.getDate().equals(date) && fun.getMovie().getName().equals(moviename)) {
+			if (fun.getDate().split(" ")[0].equals(date) && fun.getMovie().getName().equals(moviename)) {
 				function = fun;
 			}
 		}
@@ -131,7 +133,20 @@ public class InMemoryCinemaPersistence implements CinemaPersitence {
 				funcion.setMovie(funct.getMovie());
 				funcion.setSeats(funct.getSeats());
 				}
-			
+		}
+	}
+
+	@Override
+	public void DeleteFunction(String name, CinemaFunction funcion) throws CinemaPersistenceException {
+
+		Cinema cinema = getCinema(name);
+		List<CinemaFunction> functions = cinema.getFunctions();
+		int indice = 0;
+		for (indice = 0; indice < functions.size(); indice++) {
+			CinemaFunction fun = functions.get(indice);
+			if (fun.getDate().equals(funcion.getDate()) && fun.getMovie().getName().equals(funcion.getMovie().getName())) {
+				cinema.getFunctions().remove(functions.get(indice));
+			}
 		}
 	}
 }
